@@ -4,8 +4,9 @@
 - **React Native Frontend**: Initialized an Expo TypeScript application with a dark-mode premium UI dashboard mimicking Oura. Added core metric cards (Sleep, Activity, Readiness) and tagged every interactive element with `testID` and `accessibilityLabel`.
 - **Backend Mock API**: Created a FastAPI mock server in `backend/mock_api.py` that generates mocked health metrics and includes a specific stochastic "Chaos Mode". 
 - **Pytest Automation Suite**: Implemented `tests/test_api.py` targeting the Backend API, executing schema validation schemas, and evaluating "Chaos Mode" error injection. Created UI automation skeleton logic in `tests/test_ui_structure.py`.
-- **CI/CD Pipeline**: Written `.github/workflows/test.yml` to set up dual environments (Node `18.x`, Python `3.11`), launch background jobs, parallelize testing dependencies, and store `pytest-html` artifacts sequentially.
+- **CI/CD Pipeline**: Written `.github/workflows/test.yml` to set up dual environments (Node `20.x`, Python `3.11`), launch background jobs, parallelize testing dependencies, and store `pytest-html` artifacts sequentially.
 - **Bug Reports**: Outlined a simulated GitHub actions issue in `BUG_REPORTS.md` along with root cause and steps to reproduce.
+- **Networking Fixes**: Resolved physical Android USB debugging roadblocks by routing `adb reverse tcp:8081` (Metro) and `adb reverse tcp:8000` (FastAPI) and switching the backend script to support string-imported `uvicorn.run()` hot-reloading.
 
 ## Known Bugs / Issues
 - Chaos Mode relies on Python's random choice picker, meaning automated End-to-End tests will behave stochastically unless specifically mocking the seeded randoms or explicitly overriding parameters.
