@@ -1,15 +1,8 @@
-# Explanation of FastAPI Import Error
+# Review Pass
 
-## Issue
-The error: `Could not find import of fastapi, looked at search roots () and site package path ()` remains even after selecting the `venv` interpreter.
-
-## Root Cause
-VS Code's Python language server (Pylance/Pyright) is either aggressively caching the old state, or failing to automatically append your `venv`'s `site-packages` folder to its analysis path depending on how your workspace root is structured.
-
-## Fix
-1. **I have created a `.vscode/settings.json` file** in your root directory. This explicitly hardcodes Pylance to look inside `.\venv\Lib\site-packages` for imports, and forces the python interpreter path.
-2. **Reload your VS Code window**:
-   - Open the Command Palette (`Ctrl+Shift+P` on Windows/Linux, `Cmd+Shift+P` on Mac).
-   - Type in `Developer: Reload Window` and hit Enter.
-
-Once the window reloads and the Python extension starts up, Pylance will read that `settings.json` file and the red squiggly lines will vanish.
+- **Blocker**: None
+- **Major**: None
+- **Minor**:
+  - `tests/test_api.py` attempts to run the backend server unconditionally on port 8000 using `uvicorn.run(app, host="0.0.0.0", port=8000...)`. If executed while the development server is actively running on the host OS, a port conflict stack trace will emit a Pytest unhandled thread exception warning, as witnessed in the test output.
+- **Nit**:
+  - The Pyre import resolution error was caused by a relative pathing configuration but it is now correctly mapped to the `venv` directory.
