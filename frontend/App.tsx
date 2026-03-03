@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 interface HealthData {
   score: number;
@@ -16,6 +17,8 @@ export default function App() {
 
   // In a real device/emulator we'd use local IP instead of localhost, 
   // but for testing or web run, 127.0.0.1 is fine.
+  // Updated to 127.0.0.1 since you are using USB Debugging!
+  // We will run `adb reverse tcp:8000 tcp:8000` to magically pipe this port to your phone.
   const API_BASE = "http://127.0.0.1:8000/api/v2/usercollection";
 
   const fetchData = async () => {
@@ -49,7 +52,8 @@ export default function App() {
   }, [chaosMode]);
 
   return (
-    <SafeAreaView style={styles.container} testID="app-root" accessibilityLabel="app-root">
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container} testID="app-root" accessibilityLabel="app-root">
       <View style={styles.header}>
         <Text style={styles.title} testID="header-title" accessibilityLabel="header-title">Oura Clone</Text>
       </View>
@@ -89,7 +93,8 @@ export default function App() {
           </View>
         )}
       </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

@@ -8,7 +8,7 @@ from backend.mock_api import app
 BASE_URL = "http://127.0.0.1:8000"
 
 def run_server():
-    uvicorn.run(app, host="127.0.0.1", port=8000, log_level="critical")
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="critical")
 
 @pytest.fixture(scope="session", autouse=True)
 def start_server():
