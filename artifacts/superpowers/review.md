@@ -1,15 +1,15 @@
-# Review Pass: Health & Sleep Tracker CI/CD Infrastructure
+# Explanation of FastAPI Import Error
 
-## Severity Listing
+## Issue
+The error: `Could not find import of fastapi, looked at search roots () and site package path ()`
 
-### Blocker
-- None. The stack successfully runs and tests collect as expected.
+## Root Cause
+Based on the terminal output (`Requirement already satisfied: fastapi in .\venv\Lib\site-packages`), `fastapi` is definitely installed correctly in your virtual environment (`.\venv`). 
 
-### Major
-- **Chaos Mode Test Determinism**: The `test_chaos_mode` in the Appium skeleton or the Mock API test relies on randomness to trigger failures. In CI/CD, this might pass when it should fail, or fail randomly in other integration tests (flaky tests). We need a deterministic chaos toggle for rigid CI testing.
+The error is happening because your IDE (like VS Code) is using the wrong Python interpreter for its static analysis. It's looking at the system's global Python installation instead of the `.\venv` environment where `fastapi` lives.
 
-### Minor
-- **Frontend Error Boundaries**: In `frontend/App.tsx`, we have a basic `try/catch` around the `fetch` API. However, if the server returns 200 with structurally invalid data (corrupted strings instead of integers in Chaos Mode), the frontend will render them instead of crashing cleanly or showing an error box.
-
-### Nit
-- The `.github/workflows/test.yml` assumes standard `npm install`. Expo might prefer `npx expo install` for peer dependency alignment, though standard `npm ci` will work fine for pure CI builds right now.
+## Fix (VS Code)
+1. Open the Command Palette (`Ctrl+Shift+P` on Windows/Linux, `Cmd+Shift+P` on Mac).
+2. Type and select `Python: Select Interpreter`.
+3. Choose the interpreter that corresponds to your project's virtual environment. It should say something like `Python 3.x.x ('.venv': venv) .\venv\Scripts\python.exe`.
+4. The red squiggly line should disappear after a few seconds once the language server reloads.

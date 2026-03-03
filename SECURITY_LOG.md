@@ -1,0 +1,1 @@
+Noticed deprecated dependencies (glob, rimraf). Ran npm audit; current vulnerabilities are handled by Expo core. Monitoring for updates.
