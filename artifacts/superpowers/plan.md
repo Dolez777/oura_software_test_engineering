@@ -1,15 +1,15 @@
-# Plan to Fix Pytest Import Error
+# Plan: Fix Type Checker Error in test_api.py
 
-## Brainstorm
-- **Goal**: Resolve the `Could not find import of pytest` error in `tests/test_api.py`.
-- **Constraints**: Ensure we install the dependencies in the correct environment (preferably a virtual environment if one is active).
-- **Risks**: Installing packages globally might pollute the system Python. We should check for `requirements.txt` or a virtual environment first, or install it locally.
-- **Acceptance Criteria**: Running `pytest` successfully executes the API tests. The IDE no longer shows the import warning.
+## Goal
+Resolve the type checker error where `+=` evaluates as unsupported between `Binding::AugAssign attribute base undefined for type: @_` and `Literal[1]`.
 
-## Step-by-Step Plan
-1. Check if a virtual environment is active or recommended in the project.
-2. Install the missing dependencies: `pytest` and `requests` (since `requests` is also imported in the test file) using `pip install pytest requests`.
-3. If they are already in a `requirements.txt` or `requirements-dev.txt`, install from there.
+## Risks/Constraints
+- Minimal risk; just a type-hinting improvement to help the static analyzer.
+
+## Steps
+1. Open `tests/test_api.py`.
+2. Add explicit integer type annotations to the `failures` and `corruptions` variables (`failures: int = 0`).
+3. Update `MEMORY.md` to reflect this fix.
 
 ## Verification
-- Run `pytest tests/test_api.py` in the terminal. If it runs the tests (even if some fail due to the server not running or chaos mode), the import error is resolved.
+- Run `pytest tests/test_api.py` to ensure it still passes and no static type checker errors remain.

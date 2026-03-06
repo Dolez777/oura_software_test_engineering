@@ -11,6 +11,7 @@
 ## Known Bugs / Issues
 - Chaos Mode relies on Python's random choice picker, meaning automated End-to-End tests will behave stochastically unless specifically mocking the seeded randoms or explicitly overriding parameters.
 - Frontend App is not yet properly validating HTTP payload failures dynamically using schemas, so corrupt string insertions might bleed visually into UI components prior to crashing.
+- Pyre2 static analysis has trouble inferring the type of augmented assignment (e.g., `+=`) within loops, requiring `# type: ignore` as a workaround.
 
 ## What We Are Doing Next
 - The foundation is fully established. The next major phase would be hooking up standard Appium grid to execute `tests/test_ui_structure.py` on AWS Device Farm or an equivalent mobile device cloud.

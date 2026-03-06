@@ -59,17 +59,17 @@ def test_chaos_mode():
     Tests the chaos mode. We'll make multiple requests and expect 
     at least one failure or corrupted schema payload.
     """
-    failures = 0
-    corruptions = 0
+    failures: int = 0
+    corruptions: int = 0
     
     for _ in range(10):
         response = requests.get(f"{BASE_URL}/api/v2/usercollection/sleep?chaos=true")
         if response.status_code == 500:
-            failures += 1
+            failures += 1  # type: ignore
         elif response.status_code == 200:
             data = response.json()
             if data.get("score") is None or data.get("score") == -9999 or data.get("status") == "CORRUPTED_STRING_&*^":
-                corruptions += 1
+                corruptions += 1  # type: ignore
                 
     # If chaos mode is working, we should see some failures or corruptions
     assert failures > 0 or corruptions > 0, "Chaos mode did not inject any errors!"
