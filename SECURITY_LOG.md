@@ -1,1 +1,2 @@
 Noticed deprecated dependencies (glob, rimraf). Ran npm audit; current vulnerabilities are handled by Expo core. Monitoring for updates.
+Completed pre-publication security sweep on 2026-03-09: No leaked API keys, tokens, or plaintext passwords discovered in codebase. The `.env` template is clean. Safe for public repository publishing.
