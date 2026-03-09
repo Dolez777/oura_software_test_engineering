@@ -9,11 +9,14 @@
 - **Networking Fixes**: Resolved physical Android USB debugging roadblocks by routing `adb reverse tcp:8081` (Metro) and `adb reverse tcp:8000` (FastAPI) and switching the backend script to support string-imported `uvicorn.run()` hot-reloading.
 - **Project Documentation**: Wrote a high-quality `README.md` aimed at the Oura Software Test Engineering internship and a comprehensive `project_tldr_for_gemini.md` for AI reference.
 - **Security Audit**: Scanned repository thoroughly for leaked tokens (`key`, `password`, `secret`, `token`). Validated `.env` file is empty. Signed off `SECURITY_LOG.md` for public portfolio publishing.
+- **IDE/Type Checking**: Fixed Pyre/Pyre2 `Could not find import` errors by properly specifying `.` and `venv/Lib/site-packages` as `search_path` explicitly in `.pyre_configuration`.
+- **CI/CD Pipeline Improvements**: Enhanced `.github/workflows/test.yml` with Python code linting (`flake8`, `black`), `pytest-cov` test coverage generation, and added interactive status badges to the `README.md`.
+- **Chaos Mode Stabilization**: Eliminated test flakiness by adding a deterministic `chaos_type` override to the FastAPI backend, allowing the test suite to target precise 500 Internal Server errors and corrupted schemas.
+
 ## Known Bugs / Issues
-- Chaos Mode relies on Python's random choice picker, meaning automated End-to-End tests will behave stochastically unless specifically mocking the seeded randoms or explicitly overriding parameters.
 - Frontend App is not yet properly validating HTTP payload failures dynamically using schemas, so corrupt string insertions might bleed visually into UI components prior to crashing.
 - Pyre2 static analysis has trouble inferring the type of augmented assignment (e.g., `+=`) within loops, requiring `# type: ignore` as a workaround.
 
 ## What We Are Doing Next
 - The foundation is fully established. The next major phase would be hooking up standard Appium grid to execute `tests/test_ui_structure.py` on AWS Device Farm or an equivalent mobile device cloud.
-- Address the Chaos mode test flakiness by forcing deterministic failures in the integration suite.
+- Expand React Native frontend to use strict Zod payload validation to reject the corrupted payloads gracefully.

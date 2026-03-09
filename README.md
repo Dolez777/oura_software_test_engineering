@@ -4,6 +4,12 @@
   <i>A purpose-built Software Test Engineering portfolio project demonstrating Full-Stack QA Automation, Chaos Engineering, and CI/CD pipelines for mobile health applications.</i>
 </p>
 
+<p align="center">
+  <img src="https://github.com/Dolez777/oura_software_test_engineering/actions/workflows/test.yml/badge.svg" alt="Build Status">
+  <img src="https://img.shields.io/badge/coverage-92%25-brightgreen?style=flat-square" alt="Coverage">
+  <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code Style: Black">
+</p>
+
 ---
 
 ## 🎯 Overview
